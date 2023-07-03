@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
+import React, { useState } from 'react';
+import { Alert } from '../src/componentes/Alert';
+import { Login } from '../src/componentes/Login';
 
 function App() {
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertColor, setAlertColor] = useState('');
+
+  const handleLogin = (email, password) => {
+    if (email === 'correo@example.com' && password === 'contraseña') {
+      setAlertMessage('Inicio de sesión exitoso');
+      setAlertColor('success');
+    } else {
+      setAlertMessage('Los datos ingresados no son correctos');
+      setAlertColor('danger');
+    }
+  };
+
+  const resetAlert = () => {
+    setAlertMessage('');
+    setAlertColor('');
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <div>
+      
+      <Login onLogin={handleLogin} />
+      <Alert message={alertMessage} color={alertColor} onClose={resetAlert} />
+    </div>
     </div>
   );
 }
